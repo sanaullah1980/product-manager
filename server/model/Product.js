@@ -1,5 +1,12 @@
 import mongoose from 'mongoose';
 
+function getMoney(value) {
+    //if (typeof value !== 'undefined') {
+    
+      // }
+    return 'value';
+  }
+
 const productSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -7,7 +14,9 @@ const productSchema = new mongoose.Schema({
     },
     price: {
         type: mongoose.Schema.Types.Decimal128,
+        get: getMoney,
         required: true
+        
     },
     description: {
         type: String,
