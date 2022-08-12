@@ -1,6 +1,5 @@
 import { Button, TextField, Typography } from '@mui/material';
 import React, {useState, useEffect} from 'react';
-import { styled } from '@mui/material/styles';
 import axios from 'axios';
 import ProductList from './ProductList';
 
@@ -9,9 +8,10 @@ import ProductList from './ProductList';
 const AddProductForm = () => {
 
     const [title, setTitle] = useState("");
-    const [price, setPrice] = useState("");
+    const [price, setPrice] = useState();
     const [description, setDescription] = useState("");
     const [products, setProducts] = useState([]);
+    const [errors, setErrors] = useState();
 
     const style = {
         marginBottom: '1rem'
@@ -33,6 +33,7 @@ const AddProductForm = () => {
             setDescription("");
             getProducts();
         } catch (error) {
+            setErrors(error.response.data.error.errors);
             console.log(error);
         }      
     }
@@ -51,7 +52,13 @@ const AddProductForm = () => {
         getProducts();
     },[])
 
+    const filterProduct = (id) => {
+        const newproductList = products.filter((product)=> {
+            return product._id !== id
+        })
 
+        setProducts(newproductList);
+    }
   return (
     <div>
         <Typography variant='h4' sx={{mb: '1rem'}}>Product Manager</Typography>
@@ -61,29 +68,35 @@ const AddProductForm = () => {
                 label= "Title"
                 variant='filled'
                 value={title}
+                helperText={errors && errors.title && errors.title.message}
+                error={errors && errors.title}
                 onChange={(e)=> setTitle(e.target.value)}
-                required
             />
+            {/* {errors && errors.title && <span>{errors.title.message}</span>} */}
             <TextField 
                 sx={style}
                 label= "Price"
                 variant='filled'
                 value={price}
+                helperText={errors && errors.price && errors.price.message}
+                error={errors && errors.price}
                 onChange={(e)=> setPrice(e.target.value)}
-                required
+
             />
             <TextField 
                 sx={style}
                 label= "Description"
                 variant='filled'
                 value={description}
+                helperText={errors && errors.description && errors.description.message}
+                error={errors && errors.title}
                 onChange={(e)=> setDescription(e.target.value)}
-                required
+           
             />
 
             <Button variant='contained' type='submit'>Create</Button>
         </form>
-        <ProductList products={products}/>
+        <ProductList products={products} filterProduct={filterProduct}/>
     </div>
   )
 }

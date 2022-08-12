@@ -1,26 +1,19 @@
 import mongoose from 'mongoose';
 
-function getMoney(value) {
-    //if (typeof value !== 'undefined') {
-    
-      // }
-    return 'value';
-  }
 
 const productSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        required: [true, "Title is required"]
     },
     price: {
         type: mongoose.Schema.Types.Decimal128,
-        get: getMoney,
-        required: true
+        required: [true, "Price is required"]
         
     },
     description: {
         type: String,
-        required: true
+        required: [true, "Description is required"]
     }},
     {
         timestamps: true

@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getProducts, createNewProduct, getProductbyId } from '../controllers/Product.js';
+import { getProducts, createNewProduct, getProductbyId, deleteProductbyId, updateProductbyId } from '../controllers/Product.js';
 
 const router = express();
 
@@ -12,7 +12,7 @@ router
     router
     .route('/:_id')
     .get(getProductbyId)
-    // .put(updateJokewithId)
-    // .delete(deleteJokewithId);
+    .delete(deleteProductbyId)
+    .put(updateProductbyId);
 
 export default router;

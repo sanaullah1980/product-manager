@@ -5,6 +5,7 @@ import AddProductForm from './components/AddProductForm';
 import ProductList from './components/ProductList';
 import { Route, Routes } from 'react-router-dom';
 import ProductDetails from './components/ProductDetails';
+import EditProduct from './components/EditProduct';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
           <Route path='/' element={<AddProductForm />} />
           <Route path='/product/:id' element={<ProductDetails />} />
+          <Route path='/productDetails/:id' element={<EditProduct />} />
       </Routes>
     </div>
 
